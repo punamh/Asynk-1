@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <style>
+        #container {
+            border: 2px solid;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            gap: 20px;
+            border-radius: 12px;
+            margin-left:30%;
+            margin-right:30%;
+            margin-top:30px;
+        }
+        #container > div {
+            height: 120px;
+            width: 120px;
+            border: 2px solid;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        #roller {
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40px;
+            width: 150px;
+            background-color: rgb(246, 200, 140);
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        #winner {
+            margin-top:5%;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="winner">Click "ROLL THE DICE" to play</div>
+    <div id="container">
+        <div id="diceA">1</div>
+        <div id="diceB">1</div>
+        <div id="diceC">1</div>
+    </div>
+    <button id="roller">ROLL THE DICE</button>
+    
+    <script>
+        const diceA = document.getElementById('diceA');
+        const diceB = document.getElementById('diceB');
+        const diceC = document.getElementById('diceC');
+        const winnerDiv = document.getElementById('winner');
+        const roller = document.getElementById('roller');
+
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 6) +1;
+        }
+
+        function rollDice() {
+            const scoreA = getRandomNumber();
+            const scoreB = getRandomNumber();
+            const scoreC = getRandomNumber();
+            
+            diceA.textContent = scoreA;
+            diceB.textContent = scoreB;
+            diceC.textContent = scoreC;
+
+            const scores = [scoreA, scoreB, scoreC];
+            // const maxScore = Math.max(scoreA, scoreB, scoreC);
+            // const minScore = Math.min(scoreA, scoreB, scoreC);
+
+           
+            let arr = [];
+            let allscore = scores.sort();
+            arr.push(allscore);
+            console.log(allscore);
+
+            
+
+    for (let i = 0; i < arr.length; i++) {
+
+    if (scoreA === scoreB && scoreB === scoreC) {
+        diceA.style.backgroundColor = "blue";
+        diceB.style.backgroundColor = "blue";
+        diceC.style.backgroundColor = "blue";
+    } 
+    else if (scoreA === scoreB) {
+        diceA.style.backgroundColor = "blue";
+        diceB.style.backgroundColor = "blue";
+        diceC.style.backgroundColor = scoreC > scoreA ? "green" : "red";
+    }
+     else if (scoreA === scoreC) {
+        diceA.style.backgroundColor = "blue";
+        diceC.style.backgroundColor = "blue";
+        diceB.style.backgroundColor = scoreB > scoreA ? "green" : "red";
+    } 
+    else if (scoreB === scoreC) {
+        diceB.style.backgroundColor = "blue";
+        diceC.style.backgroundColor = "blue";
+        diceA.style.backgroundColor = scoreA > scoreB ? "green" : "red";
+    }
+
+     else if (scoreA > scoreB && scoreA > scoreC) {
+        
+            diceA.style.backgroundColor = "green";
+            if (scoreB > scoreC) {
+                diceB.style.backgroundColor = "yellow";
+                diceC.style.backgroundColor = "red";
+            } else {
+                diceB.style.backgroundColor = "red";
+                diceC.style.backgroundColor = "yellow";
+            }
+        } 
+
+        else if (scoreB > scoreA && scoreB > scoreC) {
+            diceB.style.backgroundColor = "green";
+            if (scoreA > scoreC) {
+                diceA.style.backgroundColor = "yellow";
+                diceC.style.backgroundColor = "red";
+            } else {
+                diceA.style.backgroundColor = "red";
+                diceC.style.backgroundColor = "yellow";
+            }
+        } 
+        
+        else if (scoreC > scoreA && scoreC > scoreB) {
+            diceC.style.backgroundColor = "green";
+            if (scoreA > scoreB) {
+                diceA.style.backgroundColor = "yellow";
+                diceB.style.backgroundColor = "red";
+            } else {
+                diceA.style.backgroundColor = "red";
+                diceB.style.backgroundColor = "yellow";
+            }
+              
+        }
+    }
+
+
+              if(diceA.style.backgroundColor === 'green'){
+                winnerDiv.textContent = 'Member A wins!';
+               }
+               else if(diceB.style.backgroundColor === 'green'){
+                winnerDiv.textContent = 'Member B wins!';
+               }
+               else if(diceC.style.backgroundColor === 'green'){
+                winnerDiv.textContent = 'Member C wins!';
+               }
+               else{
+                winnerDiv.textContent = 'Match draw!';
+               }
+
+            }
+
+        
+        roller.addEventListener('click', rollDice);
+    </script>
+</body>
+</html>
